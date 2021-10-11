@@ -18,7 +18,7 @@ workflow polygenic_risk_scores {
     }
 	Array[Array[String]] sum_stats_file_lines = read_tsv(sum_stats_files)
 
-	scatter(items in sum_stats_file_lines) {
+    scatter(items in sum_stats_file_lines) {
         call Calculate_Scores {
           input:
             docker = plink2_docker,
@@ -29,7 +29,7 @@ workflow polygenic_risk_scores {
             scored_file_prefix = items[0],
             sum_stats_file = items[1]
         }
-      }
+    }
 
     output {
         Array[File] output_formatted_sum_stats_file = Calculate_Scores.output_formatted_sum_stats_file
@@ -75,7 +75,7 @@ task Calculate_Scores {
     String vcf_generated_meta_file = vcf_prefix + "_Meta.txt"
     String sum_stats_file_in_current_directory = basename(sum_stats_file)
 
-	# Move sum_stats_file to the current directory and use sum_stats_file_in_current_directory to indicate it.
+    # Move sum_stats_file to the current directory and use sum_stats_file_in_current_directory to indicate it.
     # - else, the ES, LP, and Meta files will have gs://... tacked onto them and not be in the current directory.
     command <<<
         unzip ~{ref_dir_zipped}
@@ -121,7 +121,7 @@ task Calculate_Scores {
     runtime {
         docker: docker
         memory: memory + " GiB"
-		disks: "local-disk " + disk + " HDD"
+	disks: "local-disk " + disk + " HDD"
         cpu: cpu
         preemptible: preemptible
         maxRetries: maxRetries

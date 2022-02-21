@@ -154,7 +154,7 @@ task Calculate_Scores {
     runtime {
         docker: docker
         memory: memory + " GiB"
-		disks: "local-disk " + disk + " HDD"
+	disks: "local-disk " + disk + " HDD"
         cpu: cpu
         preemptible: preemptible
         maxRetries: maxRetries
@@ -207,7 +207,7 @@ task Calculate_Scores_Already_Formatted {
     runtime {
         docker: docker
         memory: memory + " GiB"
-		disks: "local-disk " + disk + " HDD"
+	disks: "local-disk " + disk + " HDD"
         cpu: cpu
         preemptible: preemptible
         maxRetries: maxRetries
